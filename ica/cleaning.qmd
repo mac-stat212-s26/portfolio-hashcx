@@ -64,7 +64,12 @@ sf_data |>
 
 5. Save the wrangled data to the `data/processed/` folder using `write_csv()`. Name this file `weather_clean.csv`. Look up the documentation for this function by typing `?write_csv` in the Console. You'll need to write an appropriate relative path.
 ```{r}
-
+sf_data |> 
+  mutate(PrecipYr = na_if(PrecipYr, 99999)) |> 
+  mutate(date = mdy(date)) |> 
+  mutate(dateInYear = yday(date)) |> 
+  mutate(month_name = month(date, label = TRUE)) |> 
+  write_csv("data/processed/weather_clean.csv")
 ```
 
 
